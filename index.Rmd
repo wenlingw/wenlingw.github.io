@@ -1,14 +1,12 @@
 ---
-title: "Maggie Wu"
 output: html_document
-date: "2024-11-19"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## [ABOUT ME](./about-me) | [CV](./about-me/Fearn_CV.pdf) | [BIOL-3100-Final-Project](./BIOL-3100-Final)##
+## [ABOUT ME](./about-me) | [CV](./CV.pdf) | [BIOL-3100-Final-Project](./BIOL-3100-Final)##
 
 # **Maggie Wu - Biologist** #
 

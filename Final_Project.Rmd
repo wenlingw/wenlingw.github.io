@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Introduction
@@ -24,6 +24,20 @@ This research project was conducted with other students in a biology course at U
 
 
 ## Data
+```{r Procces_data, echo=TRUE, message=FALSE}
+library(tidyverse)
+library(readxl)
+
+dat <- read_excel('./Project_Data_Clean.xlsx')
+
+view(dat)
+
+dat %>%
+  ggplot(aes(x = Treatment,
+             y = `CFUs/mL`)) +
+  geom_boxplot(color = "midnightblue", fill="blue4", alpha=0.2) +
+  labs(title = 'Data Analysis of DEET vs. Cinnamon Bark Extract')
+```
 
 
 ## Conclusion

@@ -1,0 +1,14 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+About me:
+
+Hello, welcome to my website! I am Maggie Wu and I am a student at Utah Valley University majoring in Biology. My career goal is to become a dentist with passion for creating stronger communities and smiles. 
+I am originally from Taiwan, I moved to the U.S. in 2017. Growing up in diverse backgrounds has shaped my perspective and commitment to serving people from diverse backgrounds.
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

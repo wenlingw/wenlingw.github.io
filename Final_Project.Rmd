@@ -1,5 +1,5 @@
 ---
-title: "The Effects on DEET and Cinnamon Bark Oil on Staphylococcus Epidermidis"
+title: "The Effects on DEET and Cinnamon Bark Oil on *Staphylococcus epidermidis*"
 output: html_document
 ---
 

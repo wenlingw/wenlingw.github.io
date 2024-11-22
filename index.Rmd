@@ -6,7 +6,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## [ABOUT ME](./About_Me.html)| [CV](./CV.pdf) | [BIOL-3100-Final-Project](./Biol_3100_Final_Project.html)
+## [ABOUT ME](./About_Me.html) | [CV](./CV.pdf) | [BIOL 3100 Final Project](./Final_Project.html)
 
 # **Maggie Wu - Biologist** #
 

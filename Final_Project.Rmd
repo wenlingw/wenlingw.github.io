@@ -8,15 +8,26 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## Introduction
-
+This project aims to compare the effects of DEET, one of the most common ingredients in commercial insect repellents, and cinnamon bark oil, on the bacterium *Staphylococcus epidermidis*, which is a healthy for maintaining skin homeostasis and strengthening immune system. 
 
 
 ## Background
+Mosquito-borne disease such as Malaria pose significant health risks globally. Insect bites can have serious consequences making insect repellents essential tools for protection. This project focuses on the comparison between conventional synthetic repellents and natural alternatives, particularly in the context of their effects on beneficial skin bacteria. 
 
+
+## Hypothesis 
+Exposure to DEET for one minute will result in fewer CFUs of *S. epidermidis* than exposure to cinnamon bark oil for the same duration. 
+
+
+## Notes
+This research project was conducted with other students in a biology course at Utah Valley University. 
 
 
 ## Data
 
+
+## Conclusion
+Our hypothesis was incorrect. Data suggest that DEET is less harmful to *S. epidermidis* than cinnamon bark oil. 
 
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -43,36 +43,47 @@ dat %>%
 ```{r Model, echo=TRUE, message=FALSE, warning=FALSE}
 
 library(ggplot2)
+library(easystats)
+library(caret)
 
 dat_clean <- na.omit(dat)
 
+view(dat_clean)
+
 dat$Treatment <- as.factor(dat$Treatment)
 dat$Treatment <- relevel(dat$Treatment, ref = "No Biocide")
+
 mod1 <- glm(`CFUs/mL` ~ Treatment, family = gaussian, data = dat)
 
 summary(mod1)
 
 dat_clean$Predicted <- predict(mod1, type = "response")
+
 dat$Predicted <- NA
 dat$Predicted[!is.na(dat$`CFUs/mL`)] <- dat_clean$Predicted
 
 view(dat)
 view(dat_clean)
 
+compare_data <- data.frame(Predicted = dat_clean$Predicted,
+                           Actual = dat$`CFUs/mL`[!is.na(dat$`CFUs/mL`)] )
+
+view(compare_data)
+
 ggplot(dat, aes(x = Treatment, y = `CFUs/mL`)) +
   geom_boxplot(aes(fill = Treatment), alpha = 0.6) +
   geom_point(aes(y = Predicted), color = "red", size = 2, position = position_dodge(width = 0.75)) +
-  labs(
-    title = "Comparison of Treatments on CFUs/mL",
-    x = "Treatment",
-    y = "CFUs/mL"
-  ) +
+  labs(title = "Comparison of Treatments on CFUs/mL",
+       x = "Treatment",
+       y = "CFUs/mL") +
   theme_minimal() +
   theme(legend.position = "none")
 
-library(easystats)
+R2_value <- cor(compare_data$Predicted, compare_data$Actual)^2
+R2_value
 
 report(mod1)
+
 ```
 
 

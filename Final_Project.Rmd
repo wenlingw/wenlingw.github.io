@@ -24,7 +24,7 @@ This research project was conducted with other students in a biology course at U
 
 
 ## Data
-```{r Procces_data, echo=TRUE, message=FALSE}
+```{r Procces_data, echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(readxl)
 
@@ -37,6 +37,42 @@ dat %>%
              y = `CFUs/mL`)) +
   geom_boxplot(color = "midnightblue", fill="blue4", alpha=0.2) +
   labs(title = 'Data Analysis of DEET vs. Cinnamon Bark Extract')
+```
+
+## Model Prediction
+```{r Model, echo=TRUE, message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+dat_clean <- na.omit(dat)
+
+dat$Treatment <- as.factor(dat$Treatment)
+dat$Treatment <- relevel(dat$Treatment, ref = "No Biocide")
+mod1 <- glm(`CFUs/mL` ~ Treatment, family = gaussian, data = dat)
+
+summary(mod1)
+
+dat_clean$Predicted <- predict(mod1, type = "response")
+dat$Predicted <- NA
+dat$Predicted[!is.na(dat$`CFUs/mL`)] <- dat_clean$Predicted
+
+view(dat)
+view(dat_clean)
+
+ggplot(dat, aes(x = Treatment, y = `CFUs/mL`)) +
+  geom_boxplot(aes(fill = Treatment), alpha = 0.6) +
+  geom_point(aes(y = Predicted), color = "red", size = 2, position = position_dodge(width = 0.75)) +
+  labs(
+    title = "Comparison of Treatments on CFUs/mL",
+    x = "Treatment",
+    y = "CFUs/mL"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+library(easystats)
+
+report(mod1)
 ```
 
 

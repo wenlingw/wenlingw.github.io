@@ -7,44 +7,57 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+### Introduction
 This project aims to compare the effects of DEET, one of the most common ingredients in commercial insect repellents, and cinnamon bark oil, on the bacterium *Staphylococcus epidermidis*, which is a healthy for maintaining skin homeostasis and strengthening immune system. 
 
 
-## Background
+### Background
 Mosquito-borne disease such as Malaria pose significant health risks globally. Insect bites can have serious consequences making insect repellents essential tools for protection. This project focuses on the comparison between conventional synthetic repellents and natural alternatives, particularly in the context of their effects on beneficial skin bacteria. 
 
 
-## Hypothesis 
+### Hypothesis 
 Exposure to DEET for one minute will result in fewer CFUs of *S. epidermidis* than exposure to cinnamon bark oil for the same duration. 
 
 
-## Notes
-This research project was conducted with other students in a biology course at Utah Valley University. 
+### Methods 
+To test the effects of these treatments, we conducted an experiment where we measured the CFUs/mL after applying each treatment. The data was collected for 11 replicates, a total of 33 samples. After initial cleaning of the data, generalized linear model (GLM) is used to analyze the relationship between the treatment and the CFUs/mL.This statistical model is ideal for this kind of data, as we’re looking at continuous outcomes (CFUs/mL) and a categorical independent variable (Treatment).
 
-
-## Data
-```{r Procces_data, echo=TRUE, message=FALSE, warning=FALSE}
+### Data
+```{r Packages, echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(readxl)
+library(ggplot2)
+library(dplyr)
+library(easystats)
+library(caret)
+```
 
+```{r Procces_data, echo=TRUE, message=FALSE, warning=FALSE}
 dat <- read_excel('./Project_Data_Clean.xlsx')
 
 view(dat)
 
+dat$Treatment <- factor(dat$Treatment, levels = c("No Biocide", "DEET", "Cinnamon Bark Extract"))
+
+dat%>% 
+  ggplot(aes(x = Treatment, 
+             y = `CFUs/mL`)) +
+  geom_point(color = "blue", size = 3, alpha = 0.5) +
+  facet_wrap(~ Treatment, scales = 'free_x') + 
+  labs(title = 'Scatterd Plot CFUs/mL by Treatment', 
+       x = "Treatment", 
+       y = "CFUs/mL") +
+  theme_minimal()
+
 dat %>%
   ggplot(aes(x = Treatment,
              y = `CFUs/mL`)) +
-  geom_boxplot(color = "midnightblue", fill="blue4", alpha=0.2) +
-  labs(title = 'Data Analysis of DEET vs. Cinnamon Bark Extract')
+  geom_boxplot(color = "blue", fill="blue4", alpha=0.2) +
+  labs(title = 'Box Plot CFUs/mL by Treatment')
 ```
 
-## Model Prediction
+### Model Prediction
 ```{r Model, echo=TRUE, message=FALSE, warning=FALSE}
-
-library(ggplot2)
-library(easystats)
-library(caret)
 
 dat_clean <- na.omit(dat)
 
@@ -83,12 +96,19 @@ R2_value <- cor(compare_data$Predicted, compare_data$Actual)^2
 R2_value
 
 report(mod1)
-
 ```
+### Model Summary 
+The baseline CFUs/mL for the no biocide treatment was 6.50. 
+The effect of DEET was statistically significant, with a negative estimate of -2.34, meaning it led to a reduction in CFUs/mL compared to no biocide.
+The effect of Cinnamon Bark Oil was also statistically significant, with an estimate of -4.20, suggesting a greater reduction in CFUs/mL compared to no biocide.
 
 
-## Conclusion
-Our hypothesis was incorrect. Data suggest that DEET is less harmful to *S. epidermidis* than cinnamon bark oil. 
+### Discussion 
+Our hypothesis was incorrect. Data suggest that DEET is less harmful to *S. epidermidis* than cinnamon bark oil. From model prediction, data also suggest that DEET is less harmful than cinnamon bark oil. To increase the accuracy, the sample size need to be bigger. Furthermore, our R2 value (0.3679) tells us that there may be other variables, such as temperature and time that could influence the result. 
 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### Conclusion
+Cinnamon bark oil killed more *S. epidermidis*, a healthy bacteria for maintaining skin homeostasis and strengthening immune system, than DEET. It is not a preferable way to use as insect repellent. However, bigger sample size and other variables should be tested to increase the accuracy. 
+
+### Note
+This research project was conducted with other students in a biology course at Utah Valley University.

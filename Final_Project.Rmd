@@ -71,7 +71,7 @@ compare_data <- data.frame(Predicted = dat_clean$Predicted,
 view(compare_data)
 
 ggplot(dat, aes(x = Treatment, y = `CFUs/mL`)) +
-  geom_boxplot(aes(fill = Treatment), alpha = 0.6) +
+  geom_boxplot(aes(fill = Treatment, alpha=0.2)) +
   geom_point(aes(y = Predicted), color = "red", size = 2, position = position_dodge(width = 0.75)) +
   labs(title = "Comparison of Treatments on CFUs/mL",
        x = "Treatment",
